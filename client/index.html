@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Atlas-Rising Chat App</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="sheet.css" media="screen" title="no title" charset="utf-8">
+  </head>
+  <body>
+    <!-- sign in paywall with form for signing in  -->
+    <div class="container paywall sign-in">
+      <form>
+        <input type="text" name="username" value="" placeholder="Enter Username">
+        <input type="text" name="password" value="" placeholder="Enter Password">
+        <button type="button" name="register"></button>
+        <button type="button" name="sign-in"></button>
+      </form>
+    </div>
+    <!-- second screen for registering new users -->
+    <div class="container paywall register">
+      <form>
+        <input type="text" name="username" value="" placeholder="Enter Username">
+        <input type="text" name="password" value="" placeholder="Enter Password">
+        <input type="text" name="password" value="" placeholder="Enter Password">
+        <button type="button" name="register"></button>
+        <button type="button" name="sign-in"></button>
+      </form>
+    </div>
+    <div class="container">
+      <!-- left column for users -->
+      <div class="col-md-2 users">
+        <p>
+          Users column
+        </p>
+      </div>
+      <!-- right column for messages -->
+      <div class="col-md-10 messages">
+        <p>
+          Messages
+        </p>
+      </div>
+
+    </div>
+    <script src="bower_components/jquery/dist/jquery.js" charset="utf-8"></script>
+    <script src="bower_components/underscore/underscore.js" charset="utf-8"></script>
+    <script src="templates.js" charset="utf-8"></script>
+    <script src="app.js" charset="utf-8"></script>
+  </body>
+</html>
