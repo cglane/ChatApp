@@ -4,7 +4,7 @@
   "main": "",
   "moduleType": [],
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/cglane/ChatApp",
   "ignore": [
     "**/.*",
     "node_modules",
