@@ -26,8 +26,7 @@ public class MainTest {
         stmt.execute("DROP TABLE message");
         conn.close();
     }
-    ///////////////////////////////////////////////////
-
+    /////////START TEST METHODS/////////////////////
     @Test
     public void testUser() throws SQLException {
         Connection conn = startConnection();
