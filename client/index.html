@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Atlas-Rising Chat App</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="sheet.css" media="screen" title="no title" charset="utf-8">
+
+  <body>
+    <!-- sign in paywall with form for signing in  -->
+    <div class="container paywall sign-in display-none">
+      <form>
+        <input type="text" name="username" value="" placeholder="Enter Username">
+        <input type="text" name="password" value="" placeholder="Enter Password">
+        <button type="button" id = "enter-sign-in" class = 'btn'name="enter">Enter</button>
+        <button type="button" id = "register" class="btn"name="register">Register</button>
+      </form>
+    </div>
+    <!-- second screen for registering new users -->
+    <div class="container paywall register display-none">
+      <form>
+        <input type="text" name="username" value="" placeholder="Enter Username">
+        <input type="text" name="password" value="" placeholder="Enter Password">
+        <input type="text" name="password-confirm" value="" placeholder="Enter Password Again">
+        <button type="button" id = "enter-register" class = 'btn'name="enter">Enter</button>
+        <button type="button" id = "sign-in" class= "btn" name="sign-in">Sign In</button>
+      </form>
+    </div>
+    <div class="container main">
+      <!-- left column for users -->
+      <div class="row">
+    <div class="col-xs-4 cols users"><h1>Users</h1></div>
+    <div class="col-xs-8  cols messages">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#">Messages</a></li>
+        <li><a href="#">Menu 1</a><div id="txt"></div>
+</li>
+        <li><a href="#">Menu 2</a></li>
+        <li><a href="#">Menu 3</a></li>
+      </ul>
+      <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
+      </canvas>
+p
+      <form id = "message-form">
+        <button type="button" id = "add-time" name="plus">+</button>
+        <input type="text" name="message" value=""placeholder="Please,write me a message">
+        <button class = "submit-message" type="submit" name="button">Submit</button>
+      </form>
+      <form id= "picture-upload"action="demo_form.asp">
+          <input type="file" accept="image/*;capture=camera">
+          <input class = "submit-pic"type="submit">
+        </form>
+        <div class = "canvas"type="button" name="button">canvas</button>
+        <button class = "video" type="button" name="button">Video</button>
+    </div>
+  </div>
+
+    </div>
+    <script src="bower_components/jquery/dist/jquery.js" charset="utf-8"></script>
+    <script src="bower_components/underscore/underscore.js" charset="utf-8"></script>
+    <script src="templates.js" charset="utf-8"></script>
+    <script src="ajax.js" charset="utf-8"></script>
+    <script src="app.js" charset="utf-8"></script>
+  </body>
+</html>
