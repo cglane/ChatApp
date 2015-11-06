@@ -57,11 +57,20 @@ events:function(){
 },
   createAccount:function(){
     var data = {
-        username: $('input[name="username"]').val(),
-        password: $('input[name="password"]').val(),
-    }
-    console.log(data);
-      ajax.postUsers(data);
+        username: $('input[name="rusername"]').val(),
+        password: function(){
+            if($('input[name="rpassword"]').val() === $('input[name="rpassword-confirm"]').val()){
+              return $('input[name="rpassword"]').val();
+            }
+            else{
+              alert('those passwords are not the same');
+            }
+        }
+    };
+    ajax.postUsers(data);
+  },
+  signIn: function(){
+    ajax.getUsers();
   },
   //thank you w3 schools
   countDown:function(messageId){
@@ -77,7 +86,7 @@ events:function(){
         counter+=5;
       });
       // Display 'counter' wherever you want to display it.
-      if (counter == 0) {
+      if (counter === 0) {
           // Display a login box
           $(timerSelector).parent('li').css("display","none");
           $(paragraphSelector).remove();

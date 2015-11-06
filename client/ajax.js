@@ -1,12 +1,25 @@
 var ajax ={
-  urlMessages: "https://tiny-tiny.herokuapp.com/collections/sweetMessage/",
-  urlUsers:"https://tiny-tiny.herokuapp.com/collections/sweetUsers/",
+  urlMessages: "https://tiny-tiny.herokuapp.com/collections/sweetMessage",
+  urlUsers:"https://tiny-tiny.herokuapp.com/collections/sweetUsers",
   getUsers:function(){
     $.ajax({
       url:ajax.urlUsers,
       method:'GET',
-      success:function(user){
-        console.log(user);
+      data: ajax.urlUsers,
+      success:function(data){
+        // console.log(data);
+        _.each(data, function(el, idx, arr){
+          console.log(el);
+        if(idx > 0 && $('input[name="rusername"]').val() === el.username){
+          $.ajax({
+            url:ajax.urlUsers + '/' + el._id,
+            method:'DELETE',
+            success:function(){
+              console.log('success');
+            }
+          });
+        }
+      });
       },
       failure:function(user){
         consle.log(user +":did not load");
@@ -18,7 +31,7 @@ var ajax ={
       type: 'GET',
       url: ajax.urlMessages,
       success: function(data) {
-        console.log(data+ " :loaded");
+        console.log(data + " :loaded");
       },
       failure: function(data) {
         console.log("FAILURE: ", data);
@@ -30,8 +43,8 @@ var ajax ={
       url:ajax.urlUsers,
       method:'POST',
       data: user,
-      success:function(data){
-        console.log(data);
+      success:function(user){
+        ajax.getUsers();
       },
       failure:function(data){
         console.log("You are a failure" + data);
@@ -64,7 +77,7 @@ var ajax ={
 
       },
       failure:function(){
-        console.log(data+ " :not deleted, idiot");
+        console.log(data + " :not deleted, idiot");
       }
 
     });
