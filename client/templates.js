@@ -17,9 +17,9 @@ var templates ={
   ].join(""),
 
   users : [
-    '<div id = <%=username%>>'
-    '<p><%=username%>'
-    '</div>'
+    '<div id = <%=username%>>',
+    '<p><%=username%></p>',
+    '</div>',
   ].join(""),
 
 };
