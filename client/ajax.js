@@ -9,9 +9,10 @@ var ajax ={
       success:function(data){
         // console.log(data);
         _.each(data, function(el, idx, arr){
+          ajax.printTemplate('users',el, 'users');
           console.log(el);
-          if(idx > 0 && $('input[name="rusername"]').val() === el.username){
-            $.ajax({
+        if(idx > 0 && $('input[name="rusername"]').val() === el.username){
+          $.ajax({
             url:ajax.urlUsers + el._id,
             method:'DELETE',
             success:function(){
@@ -131,4 +132,11 @@ var ajax ={
       }
     });
   },
+  printTemplate:function(name,data,selectorName){
+    var selector = "." + selectorName;
+    var tmpl = _.template(templates.users);
+    console.log("printTemplate");
+    $(selector).append(tmpl(data));
+
+  }
 };

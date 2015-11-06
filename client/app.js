@@ -11,6 +11,7 @@ page.events();
 },
 styles:function(){
   page.countDown('txt');
+  ajax.getUsers();
 },
 events:function(){
     //event handler for sign-in button 'register'
@@ -93,5 +94,6 @@ events:function(){
       }
   }, 1000);
   },
+
 
 };

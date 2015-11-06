@@ -11,11 +11,15 @@ var templates ={
     '</li>',
   ].join(""),
   messageParagraph:[
-    '<p class = <%=_id%>'
+    '<p class= <%=_id%>',
+    '<%=message%>',
+    '</p>',
   ].join(""),
 
   users : [
-
+    '<div id = <%=username%>>',
+    '<p><%=username%></p>',
+    '</div>',
   ].join(""),
 
 };
