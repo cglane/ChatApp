@@ -1,9 +1,6 @@
 var ajax ={
   urlMessages: "https://tiny-tiny.herokuapp.com/collections/sweetMessage/",
   urlUsers:"https://tiny-tiny.herokuapp.com/collections/sweetUsers/",
-
-
-
   getUsers:function(){
     $.ajax({
       url:ajax.urlUsers,
@@ -22,6 +19,15 @@ var ajax ={
               console.log('success');
             }
           });
+        }
+        if($('input[name="username"]').val() === el.username && $('input[name="password"]').val() === el.password){
+          $('.paywall').removeClass('display-block');
+          $('.paywall').addClass('display-none');
+        }
+        else{
+          $('input[name="username"]').val('');
+          $('input[name="password"]').val('');
+          alert('this is not my password');
         }
       });
       },
@@ -103,7 +109,7 @@ var ajax ={
   deleteAllUsers:function(){
     $.ajax({
       method:'GET',
-      url:ajax.urlUsers,
+      url: ajax.urlUsers,
       success:function(data){
         _.each(data,function(el){
           var id = el._id;
