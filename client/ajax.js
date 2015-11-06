@@ -109,4 +109,8 @@ var ajax ={
       }
     });
   },
+  loadTemplate:function(name,data,selector){
+    var tmpl = _.template(templates.name);
+    $(selector).append(tmpl(data));
+  }
 };
