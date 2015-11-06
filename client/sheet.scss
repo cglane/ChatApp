@@ -45,16 +45,20 @@ body{
 .messages{
   height: 400px;
   background: #FFFFF0;
+
+
 }
 //message-form formatting
-#message-form{
+form{
   position: absolute;
   bottom:20px;
   width: 100%;
-    input{
-      width:  60%;
-    }
-
+}
+#message-form input{
+  width: 50%;
+}
+#picture-upload{
+  left: 70%;
 }
 //addClass formattings
 .display-none{

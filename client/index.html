@@ -5,7 +5,7 @@
     <title>Atlas-Rising Chat App</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="sheet.css" media="screen" title="no title" charset="utf-8">
-  </head>
+
   <body>
     <!-- sign in paywall with form for signing in  -->
     <div class="container paywall sign-in display-none">
@@ -38,11 +38,20 @@
         <li><a href="#">Menu 2</a></li>
         <li><a href="#">Menu 3</a></li>
       </ul>
+      <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
+      </canvas>
+p
       <form id = "message-form">
         <button type="button" id = "add-time" name="plus">+</button>
         <input type="text" name="message" value=""placeholder="Please,write me a message">
-        <button type="submit" name="button">Submit</button>
+        <button class = "submit-message" type="submit" name="button">Submit</button>
       </form>
+      <form id= "picture-upload"action="demo_form.asp">
+          <input type="file" accept="image/*;capture=camera">
+          <input class = "submit-pic"type="submit">
+        </form>
+        <div class = "canvas"type="button" name="button">canvas</button>
+        <button class = "video" type="button" name="button">Video</button>
     </div>
   </div>
 
@@ -50,6 +59,7 @@
     <script src="bower_components/jquery/dist/jquery.js" charset="utf-8"></script>
     <script src="bower_components/underscore/underscore.js" charset="utf-8"></script>
     <script src="templates.js" charset="utf-8"></script>
+    <script src="ajax.js" charset="utf-8"></script>
     <script src="app.js" charset="utf-8"></script>
   </body>
 </html>
