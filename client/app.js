@@ -22,8 +22,7 @@ events:function(){
     });
     //event handler Enter button on sign-in page
     $('#enter-sign-in').on('click' ,function(e){
-        $('.paywall').removeClass('display-block');
-        $('.paywall').addClass('display-none');
+        page.signIn();
     });
     $('.sign-in').on('keypress',function(e){
       if(e.which === 13){
@@ -65,7 +64,8 @@ events:function(){
             else{
               alert('those passwords are not the same');
             }
-        }
+        },
+        status: false,
     };
     ajax.postUsers(data);
   },

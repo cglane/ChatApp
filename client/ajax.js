@@ -1,6 +1,6 @@
 var ajax ={
-  urlMessages: "https://tiny-tiny.herokuapp.com/collections/sweetMessage",
-  urlUsers:"https://tiny-tiny.herokuapp.com/collections/sweetUsers",
+  urlMessages: "https://tiny-tiny.herokuapp.com/collections/sweetMessage/",
+  urlUsers:"https://tiny-tiny.herokuapp.com/collections/sweetUsers/",
   getUsers:function(){
     $.ajax({
       url:ajax.urlUsers,
@@ -10,14 +10,23 @@ var ajax ={
         // console.log(data);
         _.each(data, function(el, idx, arr){
           console.log(el);
-        if(idx > 0 && $('input[name="rusername"]').val() === el.username){
-          $.ajax({
-            url:ajax.urlUsers + '/' + el._id,
+          if(idx > 0 && $('input[name="rusername"]').val() === el.username){
+            $.ajax({
+            url:ajax.urlUsers + el._id,
             method:'DELETE',
             success:function(){
               console.log('success');
             }
           });
+        }
+        if($('input[name="username"]').val() === el.username && $('input[name="password"]').val() === el.password){
+          $('.paywall').removeClass('display-block');
+          $('.paywall').addClass('display-none');
+        }
+        else{
+          $('input[name="username"]').val('');
+          $('input[name="password"]').val('');
+          alert('this is not my password');
         }
       });
       },
@@ -68,9 +77,9 @@ var ajax ={
       }
     });
   },
-  deleteUsers:function(userName){
+  deleteUsers:function(userid){
     $.ajax({
-      url: ajax.urlUsers + userId,
+      url: ajax.urlUsers + userid,
       method: 'DELETE',
       success:function(data){
         console.log(data + "deleted");
@@ -99,11 +108,11 @@ var ajax ={
   deleteAllUsers:function(){
     $.ajax({
       method:'GET',
-      url:ajax.urlUsers,
+      url: ajax.urlUsers,
       success:function(data){
         _.each(data,function(el){
           var id = el._id;
-          var uniqueUrl = urlUsers + id;
+          var uniqueUrl = ajax.urlUsers + id;
           ajax.deleteUsers(id);
         });
       }
