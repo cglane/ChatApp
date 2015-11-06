@@ -1,6 +1,7 @@
 var ajax ={
   urlMessages: "https://tiny-tiny.herokuapp.com/collections/sweetMessage/",
   urlUsers:"https://tiny-tiny.herokuapp.com/collections/sweetUsers/",
+
   getUsers:function(){
     $.ajax({
       url:ajax.urlUsers,
@@ -41,7 +42,6 @@ var ajax ={
       type: 'GET',
       url: ajax.urlMessages,
       success: function(data) {
-        console.log(data + " :loaded");
       },
       failure: function(data) {
         console.log("FAILURE: ", data);
@@ -133,6 +133,7 @@ var ajax ={
     });
   },
   printTemplate:function(name,data,selectorName){
+    var templateObject = name;
     var selector = "." + selectorName;
     var tmpl = _.template(templates.users);
     console.log("printTemplate");
