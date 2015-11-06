@@ -41,7 +41,7 @@ public class MainTest {
     public void testMessage () throws SQLException {
         Connection conn = startConnection();
         Main.insertUser(conn, "Landon", "dog");
-        Main.insertMessage(conn, 1, "sup!");
+        Main.insertMessage(conn, 1, 1, "sup!");
         Message message = Main.selectMessage(conn, 1);
         endConnection(conn);
 
@@ -52,12 +52,14 @@ public class MainTest {
     public void testDeleteMessage () throws SQLException {
         Connection conn = startConnection();
         Main.insertUser(conn, "Landon", "dog");
-        Main.insertMessage(conn, 1, "YO YO YO");
+        Main.insertMessage(conn, 1, 1, "YO YO YO");
         Message test = Main.selectMessage(conn, 1);
         ArrayList<Message> messageList = new ArrayList<>();
         messageList.add(test);
         messageList.remove(test);
         endConnection(conn);
         }
+
+
     }
 
