@@ -38,11 +38,6 @@ body {
   height: 400px;
   background: #FFFFF0; }
 
-form {
-  position: absolute;
-  bottom: 20px;
-  width: 100%; }
-
 #message-form input {
   width: 50%; }
 
