@@ -44,6 +44,7 @@ events:function(){
         $('.register').addClass('display-none');
         $('.sign-in').removeClass('display-none');
         $('.sign-in').addClass('display-block');
+        page.createAccount();
     });
     $('.register').on('keypress',function(e){
       if(e.which === 13){
@@ -54,15 +55,23 @@ events:function(){
 
 
 },
+  createAccount:function(){
+    var data = {
+        username: $('input[name="username"]').val(),
+        password: $('input[name="password"]').val(),
+    }
+    console.log(data);
+      ajax.postUsers(data);
+  },
   //thank you w3 schools
   countDown:function(messageId){
     var count = "counter" + messageId;
-    var selector = "#" + messageId;
-    console.log(selector);
-  localStorage.setItem(count, 20);
+    var timerSelector = "#" + messageId;
+    var paragraphSelector = "."+messageId;
+  localStorage.setItem(count, 5);
   var counter = localStorage[count];
   var interval = setInterval(function() {
-      $(selector).html(counter);
+      $(timerSelector).html(counter);
       counter--;
       $('#message-form').on('click',function(){
         counter+=5;
@@ -70,7 +79,8 @@ events:function(){
       // Display 'counter' wherever you want to display it.
       if (counter == 0) {
           // Display a login box
-          $(selector).parent('li').css("display","none");
+          $(timerSelector).parent('li').css("display","none");
+          $(paragraphSelector).remove();
       }
   }, 1000);
   },

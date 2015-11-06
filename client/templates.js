@@ -5,13 +5,14 @@ var templates ={
 //'span onload' starts the startTime() function on loaded.bs.modal
 //"clock" is where the time will be displayed
   newMessage:[
-    '<li id = <%= id><p>',
+    '<li id = <%=_id>',
     '<span onload="startTime()>',
-    '<span id="clock"></span>',
-    '<%=message%>',
-    '</p></li>',
+    '<span id="_id"></span>',
+    '</li>',
   ].join(""),
-
+  messageParagraph:[
+    '<p class = <%=_id%>'
+  ].join(""),
 
   users : [
 

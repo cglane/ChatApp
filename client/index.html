@@ -8,7 +8,7 @@
 
   <body>
     <!-- sign in paywall with form for signing in  -->
-    <div class="container paywall sign-in display-none">
+    <div class="container paywall sign-in display-block">
       <form>
         <input type="text" name="username" value="" placeholder="Enter Username">
         <input type="text" name="password" value="" placeholder="Enter Password">
@@ -26,21 +26,20 @@
         <button type="button" id = "sign-in" class= "btn" name="sign-in">Sign In</button>
       </form>
     </div>
-    <div class="container main">
+    <div class="container main display-none">
       <!-- left column for users -->
       <div class="row">
     <div class="col-xs-4 cols users"><h1>Users</h1></div>
     <div class="col-xs-8  cols messages">
       <ul class="nav nav-tabs">
         <li class="active"><a href="#">Messages</a></li>
-        <li><a href="#">Menu 1</a><div id="txt"></div>
+        <li><a href="#">Menu 1</a><span id="txt"></span>
 </li>
         <li><a href="#">Menu 2</a></li>
         <li><a href="#">Menu 3</a></li>
       </ul>
-      <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
-      </canvas>
-p
+      <p class = "txt">lorem ipsum viv varia fit</p>
+
       <form id = "message-form">
         <button type="button" id = "add-time" name="plus">+</button>
         <input type="text" name="message" value=""placeholder="Please,write me a message">
@@ -50,8 +49,6 @@ p
           <input type="file" accept="image/*;capture=camera">
           <input class = "submit-pic"type="submit">
         </form>
-        <div class = "canvas"type="button" name="button">canvas</button>
-        <button class = "video" type="button" name="button">Video</button>
     </div>
   </div>
 

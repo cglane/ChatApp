@@ -1,4 +1,4 @@
-var ajax =[
+var ajax ={
   urlMessages: "https://tiny-tiny.herokuapp.com/collections/sweetMessage/",
   urlUsers:"https://tiny-tiny.herokuapp.com/collections/sweetUsers/",
   getUsers:function(){
@@ -7,9 +7,9 @@ var ajax =[
       method:'GET',
       success:function(user){
         console.log(user);
-      }
+      },
       failure:function(user){
-        consle.log(user ":did not load");
+        consle.log(user +":did not load");
       }
     });
   },
@@ -109,4 +109,4 @@ var ajax =[
       }
     });
   },
-];
+};
