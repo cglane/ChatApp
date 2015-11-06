@@ -48,17 +48,17 @@ body{
 
 
 }
-//message-form formatting
-// form{
-//   position: absolute;
-//   bottom:20px;
-//   width: 100%;
-// }
+
 #message-form input{
   width: 50%;
 }
 #picture-upload{
   left: 70%;
+}
+.bottom-form{
+  position: absolute;
+  bottom:20px;
+  width: 100%;
 }
 //addClass formattings
 .display-none{
