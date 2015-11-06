@@ -1,0 +1,26 @@
+{
+  "name": "chat-app",
+  "description": "a chat application",
+  "main": "index.html",
+  "moduleType": [],
+  "keywords": [
+    "chat",
+    "application",
+    "app"
+  ],
+  "authors": [
+    "Jacob Sharp",
+    "Kate Wilson",
+    "Blake Guilloud",
+    "Jet Balagtas"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
