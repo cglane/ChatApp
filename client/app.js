@@ -10,7 +10,7 @@ page.styles();
 page.events();
 },
 styles:function(){
-  page.countDown();
+  page.countDown('txt');
 },
 events:function(){
     //event handler for sign-in button 'register'
@@ -55,20 +55,22 @@ events:function(){
 
 },
   //thank you w3 schools
-  countDown:function(){
-  localStorage.setItem('counter', 20);
-  var counter = localStorage["counter"];
+  countDown:function(messageId){
+    var count = "counter" + messageId;
+    var selector = "#" + messageId;
+    console.log(selector);
+  localStorage.setItem(count, 20);
+  var counter = localStorage[count];
   var interval = setInterval(function() {
-      $('#txt').html(counter);
+      $(selector).html(counter);
       counter--;
       $('#message-form').on('click',function(){
         counter+=5;
-        console.log(time);
       });
       // Display 'counter' wherever you want to display it.
       if (counter == 0) {
           // Display a login box
-          $('#txt').parent('li').css("display","none");
+          $(selector).parent('li').css("display","none");
       }
   }, 1000);
   },
