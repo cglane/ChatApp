@@ -8,37 +8,43 @@
   </head>
   <body>
     <!-- sign in paywall with form for signing in  -->
-    <div class="container paywall sign-in">
+    <div class="container paywall sign-in display-none">
       <form>
         <input type="text" name="username" value="" placeholder="Enter Username">
         <input type="text" name="password" value="" placeholder="Enter Password">
-        <button type="button" name="register"></button>
-        <button type="button" name="sign-in"></button>
+        <button type="button" id = "enter-sign-in" class = 'btn'name="enter">Enter</button>
+        <button type="button" id = "register" class="btn"name="register">Register</button>
       </form>
     </div>
     <!-- second screen for registering new users -->
-    <div class="container paywall register">
+    <div class="container paywall register display-none">
       <form>
         <input type="text" name="username" value="" placeholder="Enter Username">
         <input type="text" name="password" value="" placeholder="Enter Password">
-        <input type="text" name="password" value="" placeholder="Enter Password">
-        <button type="button" name="register"></button>
-        <button type="button" name="sign-in"></button>
+        <input type="text" name="password-confirm" value="" placeholder="Enter Password Again">
+        <button type="button" id = "enter-register" class = 'btn'name="enter">Enter</button>
+        <button type="button" id = "sign-in" class= "btn" name="sign-in">Sign In</button>
       </form>
     </div>
-    <div class="container">
+    <div class="container main">
       <!-- left column for users -->
-      <div class="col-md-2 users">
-        <p>
-          Users column
-        </p>
-      </div>
-      <!-- right column for messages -->
-      <div class="col-md-10 messages">
-        <p>
-          Messages
-        </p>
-      </div>
+      <div class="row">
+    <div class="col-xs-4 cols users"><h1>Users</h1></div>
+    <div class="col-xs-8  cols messages">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#">Messages</a></li>
+        <li><a href="#">Menu 1</a><div id="txt"></div>
+</li>
+        <li><a href="#">Menu 2</a></li>
+        <li><a href="#">Menu 3</a></li>
+      </ul>
+      <form id = "message-form">
+        <button type="button" id = "add-time" name="plus">+</button>
+        <input type="text" name="message" value=""placeholder="Please,write me a message">
+        <button type="submit" name="button">Submit</button>
+      </form>
+    </div>
+  </div>
 
     </div>
     <script src="bower_components/jquery/dist/jquery.js" charset="utf-8"></script>
