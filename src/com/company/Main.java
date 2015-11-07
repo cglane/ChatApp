@@ -120,11 +120,11 @@ public class Main {
 
                     try {
                         int idSenderNum = Integer.valueOf(id);
-                        int idReveiverNum = Integer.valueOf(id2);
+                        int idReceiverNum = Integer.valueOf(id2);
                         if (message == null) {
                             Spark.halt(403);
                         }
-                        insertMessage(conn, idSenderNum, idReveiverNum, message);
+                        insertMessage(conn, idSenderNum, idReceiverNum, message);
                     } catch (Exception e) {
 
                     }
