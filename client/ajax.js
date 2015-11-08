@@ -1,8 +1,8 @@
 
 var currMessages = [];
 var ajax ={
-  urlMessages: "/get-messages/",
-  urlUsers:"https://tiny-tiny.herokuapp.com/collections/sweetUsers/",
+  urlMessages: "/get-messages",
+  urlUsers:"/get-users",
   getUsers:function(){
     $.ajax({
       url:ajax.urlUsers,
