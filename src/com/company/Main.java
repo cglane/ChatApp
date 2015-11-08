@@ -192,18 +192,20 @@ public class Main {
         Spark.post(
                 "/send-message",
                 ((request, response) -> {
-                    String message = request.queryParams("message");
-                    String id = request.queryParams("senderId");
-                    String id2 = request.queryParams("receiverId");
+                    Session session = request.session();
+                    String username = session.attribute("username");
 
+                    String message = request.queryParams("message");
+                    String recipientName = request.queryParams("recipient");
+
+                    User sender = selectUser(conn, username);
+                    User recipient = selectUser(conn, recipientName);
 
                     try {
-                        int idSenderNum = Integer.valueOf(id);
-                        int idReceiverNum = Integer.valueOf(id2);
                         if (message == null) {
                             Spark.halt(403);
                         }
-                        insertMessage(conn, idSenderNum, idReceiverNum, message);
+                        insertMessage(conn, sender._id, recipient._id, message);
                     } catch (Exception e) {
 
                     }
