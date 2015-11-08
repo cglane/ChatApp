@@ -1,5 +1,6 @@
 body {
-  background-color: #E0FFFF; }
+  background-color: #6899D3;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif; }
 
 .paywall {
   background-color: #FFF8DC;
@@ -29,8 +30,9 @@ body {
   box-shadow: 10px 0px 5px 5px #888888; }
 
 .users {
-  background: #87CEEB;
-  height: 800px; }
+  background: #0E53A7;
+  height: 800px;
+  text-family: "Courier New", Courier, monospace; }
   .users:hover {
     background-color: #4682B4; }
 

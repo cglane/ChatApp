@@ -73,6 +73,7 @@ events:function(){
         localStorage.setItem('recipient', recipient);
         console.log(recipient);
         $('.users p').css('color','black');
+        $('.users span').css('color','black');
         $(this).css("color",'red');
       });
       //event handler for showing messages

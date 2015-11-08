@@ -18,6 +18,7 @@ var templates ={
 
   users : [
     '<div id = <%=username%>>',
+    '  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>',
     '<p><%=username%></p>',
     '</div>',
   ].join(""),
