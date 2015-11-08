@@ -1,6 +1,5 @@
 package com.company;
 
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import jodd.json.JsonSerializer;
 import spark.Session;
 import spark.Spark;
@@ -31,9 +30,38 @@ public class Main {
         if (results.next()) {
             user = new User();
             user.id = results.getInt("id");
+            user.username = results.getString("name");
             user.password = results.getString("password");
         }
         return user;
+    }
+
+    public static User selectUser(Connection conn, int id) throws SQLException {
+        User user = null;
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users WHERE id = ?");
+        stmt.setInt(1, id);
+        ResultSet results = stmt.executeQuery();
+        if (results.next()) {
+            user = new User();
+            user.id = results.getInt("id");
+            user.username = results.getString("name");
+            user.password = results.getString("password");
+        }
+        return user;
+    }
+
+    public static ArrayList<User> selectUsers(Connection conn) throws SQLException {
+        ArrayList<User> users = new ArrayList<>();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users");
+        ResultSet results = stmt.executeQuery();
+        while (results.next()) {
+            User user = new User();
+            user.id = results.getInt("id");
+            user.username = results.getString("name");
+            user.password = results.getString("password");
+            users.add(user);
+        }
+        return users;
     }
 
     public static void insertMessage(Connection conn, int senderId, int receiverId, String message) throws SQLException {
@@ -67,7 +95,9 @@ public class Main {
             message.id = results.getInt("message.id");
             message.message = results.getString("message.message");
             message.username = results.getString("users.name");
-            message.recipient = results.getString("message.recipient");
+            int receiverId = results.getInt("message.receiver_id");
+            User receiver = selectUser(conn, receiverId);
+            message.recipient = receiver.username;
             replies.add(message);
         }
         return replies;
@@ -87,6 +117,19 @@ public class Main {
         createTable(conn);
 
         Spark.externalStaticFileLocation("client");
+
+        if (selectUsers(conn).size() == 0) {
+            insertUser(conn, "Landon", "");
+            insertUser(conn, "Matt", "");
+            insertUser(conn, "David", "");
+            insertUser(conn, "Tim", "");
+        }
+
+        if (selectMessages(conn).size() == 0) {
+            insertMessage(conn, 1, 2, "Hello this is a message");
+            insertMessage(conn, 1, 2, "What up");
+            insertMessage(conn, 1, 2, "YO YOU YO");
+        }
 
         Spark.post(
                 "/login",
@@ -133,6 +176,15 @@ public class Main {
                 ((request, response) -> {
                     JsonSerializer serializer = new JsonSerializer();
                     String json = serializer.serialize(selectMessages(conn));
+                    return json;
+                })
+        );
+
+        Spark.get(
+                "/get-users",
+                ((request, response) -> {
+                    JsonSerializer serializer = new JsonSerializer();
+                    String json = serializer.serialize(selectUsers(conn));
                     return json;
                 })
         );
