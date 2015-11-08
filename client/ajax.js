@@ -1,7 +1,8 @@
+
+var currMessages = [];
 var ajax ={
   urlMessages: "https://tiny-tiny.herokuapp.com/collections/sweetMessage/",
   urlUsers:"https://tiny-tiny.herokuapp.com/collections/sweetUsers/",
-
   getUsers:function(){
     $.ajax({
       url:ajax.urlUsers,
@@ -10,8 +11,7 @@ var ajax ={
       success:function(data){
         // console.log(data);
         _.each(data, function(el, idx, arr){
-          ajax.printTemplate('users',el, 'users');
-          console.log(el);
+          ajax.printUsers(el, 'users');
         if(idx > 0 && $('input[name="rusername"]').val() === el.username){
           $.ajax({
             url:ajax.urlUsers + el._id,
@@ -24,6 +24,9 @@ var ajax ={
         if($('input[name="username"]').val() === el.username && $('input[name="password"]').val() === el.password){
           $('.paywall').removeClass('display-block');
           $('.paywall').addClass('display-none');
+          $('.main').removeClass('display-none');
+          $('.main').addClass('display-block');
+          localStorage.setItem('username',el.username);
         }
         else{
           $('input[name="username"]').val('');
@@ -37,16 +40,58 @@ var ajax ={
       }
     });
   },
-  getMessages:function(){
+  getMessageButtons:function(){
     $.ajax({
       type: 'GET',
       url: ajax.urlMessages,
       success: function(data) {
+        var username = localStorage['username'];
+        _.each(data,function(el){
+          if(el.recipient == username){
+            ajax.printMessageButton(el);
+            //add message id to currMessages array
+            currMessages.push(el._id);
+          }
+        });
       },
       failure: function(data) {
         console.log("FAILURE: ", data);
       }
     });
+  },
+  getNewMessageButtons:function(){
+    $.ajax({
+      type: 'GET',
+      url: ajax.urlMessages,
+      success: function(data) {
+        var username = localStorage['username'];
+        _.each(data,function(el){
+          if(el.recipient == username){
+            if(!_.contains(currMessages,el._id)){
+            ajax.printMessageButton(el);
+            currMessages.push(el._id);
+              }
+          }
+        });
+      },
+      failure: function(data) {
+        console.log("FAILURE: ", data);
+      }
+    });
+  },
+  getMessageText:function(messageId){
+      $.ajax({
+        type:'GET',
+        url:ajax.urlMessages,
+        success:function(data){
+          _.each(data,function(el){
+            if(el._id ===messageId){
+              ajax.printMessageText(el);
+              console.log(el.message);
+            }
+          });
+        }
+      });
   },
   postUsers:function(user){
     $.ajax({
@@ -63,15 +108,11 @@ var ajax ={
   },
   postMessages:function(message){
     $.ajax({
-      url: main.urlMessages,
+      url: ajax.urlMessages,
       method: 'POST',
       data: message,
       success: function(resp) {
-        // console.log(resp);
-        // var tmpl = _.template(templates.userInput);
-        // $('.chatfield').append(tmpl(resp));
-        // main.startFixedWindowAtBottom('chatfield');
-        console.log(resp);
+        console.log('success');
       },
       failure: function(resp) {
         console.log("FAILURE", resp);
@@ -92,14 +133,14 @@ var ajax ={
 
     });
   },
-  deleteMessages:function(messageId){
+  deleteMessages:function(messageId,liSelector,paragraphSelector){
     $.ajax({
       method: 'DELETE',
       url: ajax.urlMessages + messageId,
       success: function(data) {
         console.log("DELETED", data);
-        // var id = '#' + messageId;
-        // $(id).remove();
+        $(liSelector).remove();
+        $(paragraphSelector).remove();
       },
       failure: function(data) {
         console.log("ERROR", data);
@@ -132,12 +173,25 @@ var ajax ={
       }
     });
   },
-  printTemplate:function(name,data,selectorName){
-    var templateObject = name;
+  printUsers:function(data,selectorName){
     var selector = "." + selectorName;
     var tmpl = _.template(templates.users);
-    console.log("printTemplate");
     $(selector).append(tmpl(data));
+    if(data.username === localStorage['recipient']){
+      console.log(data.username);
+      var currRecipientSelector = "#"+data.username;
+      $(currRecipientSelector).css("color","red");
+    }
 
-  }
+
+  },
+  printMessageButton:function(data){
+    var tmpl = _.template(templates.newMessage);
+      $('.nav-tabs').append(tmpl(data));
+  },
+    printMessageText:function(data){
+      var tmpl = _.template(templates.messageParagraph);
+      $('.message-text-box').append(tmpl(data));
+    },
+
 };
