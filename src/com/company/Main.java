@@ -6,6 +6,7 @@ import spark.Session;
 import spark.Spark;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -57,6 +58,21 @@ public class Main {
         return message;
     }
 
+    public static ArrayList<Message> selectMessages(Connection conn) throws SQLException {
+        ArrayList<Message> replies = new ArrayList<>();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM message INNER JOIN users ON message.sender_id = users.id");
+        ResultSet results = stmt.executeQuery();
+        while (results.next()) {
+            Message message = new Message();
+            message.id = results.getInt("message.id");
+            message.message = results.getString("message.message");
+            message.username = results.getString("users.name");
+            message.recipient = results.getString("message.recipient");
+            replies.add(message);
+        }
+        return replies;
+    }
+
     public static void deleteMessage(Connection conn, int id) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM message WHERE id = ?");
         stmt.setInt(1, id);
@@ -69,6 +85,8 @@ public class Main {
         Connection conn = DriverManager.getConnection("jdbc:h2:./main");
 
         createTable(conn);
+
+        Spark.externalStaticFileLocation("client");
 
         Spark.post(
                 "/login",
@@ -107,6 +125,15 @@ public class Main {
 
                     }
                     return "";
+                })
+        );
+
+        Spark.get(
+                "/get-messages",
+                ((request, response) -> {
+                    JsonSerializer serializer = new JsonSerializer();
+                    String json = serializer.serialize(selectMessages(conn));
+                    return json;
                 })
         );
 

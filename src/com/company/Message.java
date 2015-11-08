@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
  */
 public class Message {
     int id;
-    LocalDateTime time;
     String message;
     String username;
+    String recipient;
 
     public int getId() {
         return id;
@@ -19,11 +19,11 @@ public class Message {
         return message;
     }
 
-    public LocalDateTime getTime() {
-        return time;
-    }
-
     public String getUsername() {
         return username;
+    }
+
+    public String getRecipient() {
+        return recipient;
     }
 }
