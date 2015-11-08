@@ -8,7 +8,7 @@
 
   <body>
     <!-- sign in paywall with form for signing in  -->
-    <div class="container paywall sign-in display-block">
+    <div class="container paywall sign-in display-none">
       <form>
         <input type="text" name="username" value="" placeholder="Enter Username">
         <input type="text" name="password" value="" placeholder="Enter Password">
@@ -26,19 +26,15 @@
         <button type="button" id = "sign-in" class= "btn" name="sign-in">Sign In</button>
       </form>
     </div>
-    <div class="container main display-none">
+    <div class="container main display-block">
       <!-- left column for users -->
       <div class="row">
     <div class="col-xs-4 cols users"><h1>Users</h1></div>
     <div class="col-xs-8  cols messages">
       <ul class="nav nav-tabs">
         <li class="active"><a href="#">Messages</a></li>
-        <li><a href="#">Menu 1</a><span id="txt"></span>
-</li>
-        <li><a href="#">Menu 2</a></li>
-        <li><a href="#">Menu 3</a></li>
       </ul>
-      <p class = "txt">lorem ipsum viv varia fit</p>
+      <div class = "message-text-box"></div>
 
       <form class = "bottom-form"id = "message-form">
         <button type="button" id = "add-time" name="plus">+</button>

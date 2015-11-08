@@ -1,8 +1,6 @@
 $(document).ready(function(){
-  console.log('hello world');
   page.init();
 });
-
 var page = {
 
 init:function(){
@@ -10,8 +8,9 @@ page.styles();
 page.events();
 },
 styles:function(){
-  page.countDown('txt');
   ajax.getUsers();
+  ajax.getMessageButtons();
+  setInterval(ajax.getNewMessageButtons,1000);
 },
 events:function(){
     //event handler for sign-in button 'register'
@@ -51,8 +50,39 @@ events:function(){
         $('#enter-register').click();
       }
     });
-    //event handler add time button
+    //post message to database/to screen
+    $('#message-form').on('click','.submit-message',function(e){
+      e.preventDefault();
+        data ={
+            username: localStorage['username'],
+            recipient: localStorage['recipient'],
+            message:$('input[name="message"]').val(),
+        };
+        ajax.postMessages(data);
+        $('input[name="message"]').val('');
+        console.log(data);
+      });
+      $('.submit-message').on('keypress',function(e){
+          if(e.which === 13){
+            $('#message-form').click();
+          }
+      });
 
+      $('.users').on('click','p',function(){
+        var recipient = $(this).closest('div').attr('id');
+        localStorage.setItem('recipient', recipient);
+        console.log(recipient);
+        $('.users p').css('color','black');
+        $(this).css("color",'red');
+      });
+      //event handler for showing messages
+      $('.nav-tabs').on('click','li',function(e){
+        e.preventDefault();
+        var navBarID = $(this).closest('li').attr('id');
+        page.countDown(navBarID);
+        ajax.getMessageText(navBarID);
+
+      });
 
 },
   createAccount:function(){
@@ -75,22 +105,18 @@ events:function(){
   },
   //thank you w3 schools
   countDown:function(messageId){
-    var count = "counter" + messageId;
-    var timerSelector = "#" + messageId;
-    var paragraphSelector = "."+messageId;
-  localStorage.setItem(count, 5);
-  var counter = localStorage[count];
-  var interval = setInterval(function() {
-      $(timerSelector).html(counter);
-      counter--;
+    var setTime = 5;
+    var liSelector = "#" + messageId;
+    var spanSelector = 'span' + "." + messageId;
+    var paragraphSelector = "."+ messageId;
+    var interval = setInterval(function() {
+        setTime--;
+      $(spanSelector).html(setTime);
       $('#message-form').on('click',function(){
-        counter+=5;
-      });
-      // Display 'counter' wherever you want to display it.
-      if (counter === 0) {
-          // Display a login box
-          $(timerSelector).parent('li').css("display","none");
-          $(paragraphSelector).remove();
+        setTime+=5;
+      })
+      if (setTime === 0) {
+          ajax.deleteMessages(messageId,liSelector,paragraphSelector);
       }
   }, 1000);
   },
