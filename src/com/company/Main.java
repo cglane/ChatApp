@@ -201,14 +201,10 @@ public class Main {
                     User sender = selectUser(conn, username);
                     User recipient = selectUser(conn, recipientName);
 
-                    try {
-                        if (message == null) {
-                            Spark.halt(403);
-                        }
-                        insertMessage(conn, sender._id, recipient._id, message);
-                    } catch (Exception e) {
-
+                    if (message == null) {
+                        Spark.halt(403);
                     }
+                    insertMessage(conn, sender._id, recipient._id, message);
                     return "";
                 })
         );
