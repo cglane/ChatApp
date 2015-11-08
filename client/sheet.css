@@ -1,6 +1,6 @@
 body {
-  background-color: #6899D3;
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif; }
+  background-color: #fff;
+  font-family: "Myriad Set Pro","Lucida Grande","Helvetica Neue","Helvetica","Arial","Verdana","sans-serif"; }
 
 .paywall {
   background-color: #FFF8DC;
@@ -32,7 +32,7 @@ body {
 .users {
   background: #0E53A7;
   height: 800px;
-  text-family: "Courier New", Courier, monospace; }
+  text-family: "Myriad Set Pro","Lucida Grande","Helvetica Neue","Helvetica","Arial","Verdana","sans-serif"; }
   .users:hover {
     background-color: #4682B4; }
 
