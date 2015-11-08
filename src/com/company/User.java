@@ -4,7 +4,7 @@ package com.company;
  * Created by landonkail on 11/5/15.
  */
 public class User {
-    int id;
+    int _id;
     String username;
     String password;
 
@@ -12,13 +12,13 @@ public class User {
     }
 
     public User(int id, String username, String password) {
-        this.id = id;
+        this._id = id;
         this.username = username;
         this.password = password;
     }
 
-    public int getId() {
-        return id;
+    public int get_id() {
+        return _id;
     }
 
     public String getUsername() {

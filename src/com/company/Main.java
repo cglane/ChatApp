@@ -11,8 +11,8 @@ public class Main {
 
     public static void createTable(Connection conn) throws SQLException {
         java.sql.Statement stmt = conn.createStatement();
-        stmt.execute("CREATE TABLE IF NOT EXISTS users (id IDENTITY, name VARCHAR, password VARCHAR)");
-        stmt.execute("CREATE TABLE IF NOT EXISTS message (id IDENTITY, sender_id INT, receiver_id INT, message VARCHAR)");
+        stmt.execute("CREATE TABLE IF NOT EXISTS users (_id IDENTITY, name VARCHAR, password VARCHAR)");
+        stmt.execute("CREATE TABLE IF NOT EXISTS message (_id IDENTITY, sender_id INT, receiver_id INT, message VARCHAR)");
     }
 
     public static void insertUser(Connection conn, String name, String password) throws SQLException {
@@ -29,7 +29,7 @@ public class Main {
         ResultSet results = stmt.executeQuery();
         if (results.next()) {
             user = new User();
-            user.id = results.getInt("id");
+            user._id = results.getInt("_id");
             user.username = results.getString("name");
             user.password = results.getString("password");
         }
@@ -38,12 +38,12 @@ public class Main {
 
     public static User selectUser(Connection conn, int id) throws SQLException {
         User user = null;
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users WHERE id = ?");
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users WHERE _id = ?");
         stmt.setInt(1, id);
         ResultSet results = stmt.executeQuery();
         if (results.next()) {
             user = new User();
-            user.id = results.getInt("id");
+            user._id = results.getInt("_id");
             user.username = results.getString("name");
             user.password = results.getString("password");
         }
@@ -56,7 +56,7 @@ public class Main {
         ResultSet results = stmt.executeQuery();
         while (results.next()) {
             User user = new User();
-            user.id = results.getInt("id");
+            user._id = results.getInt("_id");
             user.username = results.getString("name");
             user.password = results.getString("password");
             users.add(user);
@@ -74,12 +74,12 @@ public class Main {
 
     public static Message selectMessage(Connection conn, int messageId) throws SQLException {
         Message message = null;
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM message INNER JOIN users ON message.sender_id = users.id WHERE message.id = ?");
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM message INNER JOIN users ON message.sender_id = users._id WHERE message._id = ?");
         stmt.setInt(1, messageId);
         ResultSet results = stmt.executeQuery();
         if (results.next()) {
             message = new Message();
-            message.id = results.getInt("message.id");
+            message._id = results.getInt("message._id");
             message.username = results.getString("users.name");
             message.message = results.getString("message.message");
         }
@@ -88,11 +88,11 @@ public class Main {
 
     public static ArrayList<Message> selectMessages(Connection conn) throws SQLException {
         ArrayList<Message> replies = new ArrayList<>();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM message INNER JOIN users ON message.sender_id = users.id");
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM message INNER JOIN users ON message.sender_id = users._id");
         ResultSet results = stmt.executeQuery();
         while (results.next()) {
             Message message = new Message();
-            message.id = results.getInt("message.id");
+            message._id = results.getInt("message._id");
             message.message = results.getString("message.message");
             message.username = results.getString("users.name");
             int receiverId = results.getInt("message.receiver_id");
@@ -104,7 +104,7 @@ public class Main {
     }
 
     public static void deleteMessage(Connection conn, int id) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("DELETE FROM message WHERE id = ?");
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM message WHERE _id = ?");
         stmt.setInt(1, id);
         stmt.execute();
     }
@@ -158,7 +158,7 @@ public class Main {
         Spark.get(
                 "/get-message",
                 ((request, response) -> {
-                    String id = request.queryParams("id");
+                    String id = request.queryParams("_id");
                     try {
                         int idNum = Integer.valueOf(id);
                         JsonSerializer serializer = new JsonSerializer();
@@ -214,7 +214,7 @@ public class Main {
         Spark.post(
                 "/delete-message",
                 ((request, response) -> {
-                    String id = request.queryParams("id");
+                    String id = request.queryParams("_id");
                     try {
                         int idNum = Integer.valueOf(id);
                         deleteMessage(conn, idNum);

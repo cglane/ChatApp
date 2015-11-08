@@ -1,18 +1,16 @@
 package com.company;
 
-import java.time.LocalDateTime;
-
 /**
  * Created by landonkail on 11/5/15.
  */
 public class Message {
-    int id;
+    int _id;
     String message;
     String username;
     String recipient;
 
-    public int getId() {
-        return id;
+    public int get_id() {
+        return _id;
     }
 
     public String getMessage() {
