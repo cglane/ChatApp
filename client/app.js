@@ -73,7 +73,7 @@ events:function(){
         localStorage.setItem('recipient', recipient);
         console.log(recipient);
         $('.users p').css('color','black');
-        $('.users span').css('color','black');
+        $('.users span').css('color','black');_
         $(this).css("color",'red');
       });
       //event handler for showing messages
@@ -93,9 +93,7 @@ events:function(){
             if($('input[name="rpassword"]').val() === $('input[name="rpassword-confirm"]').val()){
               return $('input[name="rpassword"]').val();
             }
-            else{
-              alert('those passwords are not the same');
-            }
+    
         },
         status: false,
     };

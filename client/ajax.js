@@ -32,12 +32,11 @@ var ajax ={
         else{
           $('input[name="username"]').val('');
           $('input[name="password"]').val('');
-          alert('this is not my password');
         }
       });
       },
       failure:function(user){
-        consle.log(user +":did not load");
+        console.log(user +":did not load");
       }
     });
   },
@@ -113,7 +112,7 @@ var ajax ={
   },
   postMessages:function(message){
     $.ajax({
-      url: ajax.urlMessages,
+      url: "/send-message",
       method: 'POST',
       data: message,
       success: function(resp) {
