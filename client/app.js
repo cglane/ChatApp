@@ -72,7 +72,6 @@ events:function(){
       $('.users').on('click','p',function(){
         var recipient = $(this).closest('div').attr('id');
         localStorage.setItem('recipient', recipient);
-        console.log(recipient);
         $('.users p').css('color','black');
         $('.users span').css('color','black');_
         $(this).css("color",'red');
@@ -81,7 +80,6 @@ events:function(){
       $('.nav-tabs').on('click','li',function(e){
         e.preventDefault();
         var navBarID = $(this).closest('li').attr('id');
-        console.log(navBarID);
         page.countDown(navBarID);
         ajax.getMessageText(navBarID);
 
