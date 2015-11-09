@@ -58,9 +58,9 @@ events:function(){
             recipient: localStorage['recipient'],
             message:$('input[name="message"]').val(),
         };
+        console.log(data);
         ajax.postMessages(data);
         $('input[name="message"]').val('');
-        console.log(data);
       });
       $('.submit-message').on('keypress',function(e){
           if(e.which === 13){
