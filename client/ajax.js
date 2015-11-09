@@ -1,7 +1,7 @@
 var ajax ={
   urlMessages: "https://tiny-tiny.herokuapp.com/collections/sweetMessage/",
   urlUsers:"https://tiny-tiny.herokuapp.com/collections/sweetUsers/",
-  getUsers:function(){
+  loginUsers:function(){
     $.ajax({
       url:ajax.urlUsers,
       method:'GET',
@@ -9,7 +9,6 @@ var ajax ={
       success:function(data){
         // console.log(data);
         _.each(data, function(el, idx, arr){
-          ajax.printTemplate('users',el, 'users');
           console.log(el);
         if(idx > 0 && $('input[name="rusername"]').val() === el.username){
           $.ajax({
@@ -23,6 +22,7 @@ var ajax ={
         if($('input[name="username"]').val() === el.username && $('input[name="password"]').val() === el.password){
           $('.paywall').removeClass('display-block');
           $('.paywall').addClass('display-none');
+          $('.container.main').removeClass('display-none');
         }
         else{
           $('input[name="username"]').val('');
@@ -33,6 +33,18 @@ var ajax ={
       },
       failure:function(user){
         consle.log(user +":did not load");
+      }
+    });
+  },
+  getUsers: function(){
+    $.ajax({
+      url:ajax.urlUsers,
+      method:'GET',
+      data:ajax.urlUsers,
+      success:function(data){
+        _.each(data, function(el){
+          ajax.printTemplate('users', el, 'users');
+        });
       }
     });
   },
@@ -136,6 +148,7 @@ var ajax ={
     var selector = "." + selectorName;
     var tmpl = _.template(templates.users);
     console.log("printTemplate");
+    $('.users').html('');
     $(selector).append(tmpl(data));
 
   }

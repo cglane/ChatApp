@@ -8,10 +8,13 @@ var page = {
 init:function(){
 page.styles();
 page.events();
+setInterval(function(){
+  ajax.getUsers();
+}, 1000);
 },
 styles:function(){
   page.countDown('txt');
-  ajax.getUsers();
+  ajax.loginUsers();
 },
 events:function(){
     //event handler for sign-in button 'register'
@@ -71,7 +74,7 @@ events:function(){
     ajax.postUsers(data);
   },
   signIn: function(){
-    ajax.getUsers();
+    ajax.loginUsers();
   },
   //thank you w3 schools
   countDown:function(messageId){
