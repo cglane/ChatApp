@@ -59,6 +59,7 @@ events:function(){
             message:$('input[name="message"]').val(),
         };
         console.log(data);
+
         ajax.postMessages(data);
         $('input[name="message"]').val('');
       });
@@ -71,7 +72,6 @@ events:function(){
       $('.users').on('click','p',function(){
         var recipient = $(this).closest('div').attr('id');
         localStorage.setItem('recipient', recipient);
-        console.log(recipient);
         $('.users p').css('color','black');
         $('.users span').css('color','black');_
         $(this).css("color",'red');
@@ -93,7 +93,7 @@ events:function(){
             if($('input[name="rpassword"]').val() === $('input[name="rpassword-confirm"]').val()){
               return $('input[name="rpassword"]').val();
             }
-    
+
         },
         status: false,
     };

@@ -23,7 +23,7 @@ body {
 
 .cols {
   border: 1px solid #D3D3D3;
-  height: 600 px; }
+  height: 600px; }
 
 .row {
   margin-top: 5%;
@@ -38,7 +38,8 @@ body {
 
 .messages {
   height: 400px;
-  background: #FFFFF0; }
+  background: #FFFFF0;
+  color: red; }
 
 #message-form input {
   width: 50%; }

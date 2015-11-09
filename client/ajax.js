@@ -48,7 +48,6 @@ var ajax ={
         var username = localStorage['username'];
         var parsedData = JSON.parse(data);
         _.each(parsedData,function(el){
-          console.log(parsedData);
           if(el.recipient == username){
             ajax.printMessageButton(el);
             //add message id to currMessages array
@@ -85,14 +84,13 @@ var ajax ={
   getMessageText:function(messageId){
       $.ajax({
         type:'GET',
-        url:ajax.urlMessages,
+        url:"/get-messages",
         success:function(data){
           var parsedData = JSON.parse(data);
           _.each(parsedData,function(el){
-            if(el._id ===messageId){
+            if(el._id == messageId){
               ajax.printMessageText(el);
-              console.log(el.message);
-            }
+            };
           });
         }
       });
@@ -116,7 +114,6 @@ var ajax ={
       method: 'POST',
       data: message,
       success: function(resp) {
-        console.log(resp);
         console.log('success');
       },
       failure: function(resp) {
@@ -124,24 +121,12 @@ var ajax ={
       }
     });
   },
-  deleteUsers:function(userid){
-    $.ajax({
-      url: ajax.urlUsers + userid,
-      method: 'DELETE',
-      success:function(data){
-        console.log(data + "deleted");
 
-      },
-      failure:function(){
-        console.log(data + " :not deleted, idiot");
-      }
-
-    });
-  },
   deleteMessages:function(messageId,liSelector,paragraphSelector){
     $.ajax({
-      method: 'DELETE',
-      url: ajax.urlMessages + messageId,
+      method: 'POST',
+      url: "/delete-message",
+      data: {id:messageId},
       success: function(data) {
         console.log("DELETED", data);
         $(liSelector).remove();
@@ -185,7 +170,6 @@ var ajax ={
     var tmpl = _.template(templates.users);
     $(selector).append(tmpl(data));
     if(data.username === localStorage['recipient']){
-      console.log(data.username);
       var currRecipientSelector = "#"+data.username;
       $(currRecipientSelector).css("color","red");
     }
@@ -194,7 +178,6 @@ var ajax ={
   },
   printMessageButton:function(data){
     var tmpl = _.template(templates.newMessage);
-    console.log(data);
       $('.nav-tabs').append(tmpl(data));
   },
     printMessageText:function(data){
