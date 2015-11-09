@@ -1,0 +1,58 @@
+body {
+  background-color: #fff;
+  font-family: "Myriad Set Pro","Lucida Grande","Helvetica Neue","Helvetica","Arial","Verdana","sans-serif"; }
+
+.paywall {
+  background-color: #FFF8DC;
+  margin: auto;
+  margin-top: 10%;
+  height: 400px;
+  width: 500px;
+  border: 4px solid #D3D3D3; }
+  .paywall form {
+    width: 80%;
+    margin: auto;
+    margin-top: 20%; }
+    .paywall form input {
+      margin-bottom: 10%;
+      width: 100%; }
+    .paywall form button {
+      margin-top: 5%; }
+    .paywall form .enter {
+      width: 100%; }
+
+.cols {
+  border: 1px solid #D3D3D3;
+  height: 600px; }
+
+.row {
+  margin-top: 5%;
+  box-shadow: 10px 0px 5px 5px #888888; }
+
+.users {
+  background: #0E53A7;
+  height: 800px;
+  text-family: "Myriad Set Pro","Lucida Grande","Helvetica Neue","Helvetica","Arial","Verdana","sans-serif"; }
+  .users:hover {
+    background-color: #4682B4; }
+
+.messages {
+  height: 400px;
+  background: #FFFFF0; }
+
+#message-form input {
+  width: 50%; }
+
+#picture-upload {
+  left: 70%; }
+
+.bottom-form {
+  position: absolute;
+  bottom: 20px;
+  width: 100%; }
+
+.display-none {
+  display: none; }
+
+.display-block {
+  display: block; }
