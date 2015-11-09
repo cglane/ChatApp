@@ -81,6 +81,7 @@ events:function(){
       $('.nav-tabs').on('click','li',function(e){
         e.preventDefault();
         var navBarID = $(this).closest('li').attr('id');
+        console.log(navBarID);
         page.countDown(navBarID);
         ajax.getMessageText(navBarID);
 

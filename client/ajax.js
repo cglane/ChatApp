@@ -85,13 +85,14 @@ var ajax ={
   getMessageText:function(messageId){
       $.ajax({
         type:'GET',
-        url:ajax.urlMessages,
+        url:"/get-messages",
         success:function(data){
           var parsedData = JSON.parse(data);
+          console.log(data);
           _.each(parsedData,function(el){
-            if(el._id ===messageId){
+            console.log(messageId);
+            if(el._id === messageId){
               ajax.printMessageText(el);
-              console.log(el.message);
             }
           });
         }
@@ -124,24 +125,12 @@ var ajax ={
       }
     });
   },
-  deleteUsers:function(userid){
-    $.ajax({
-      url: ajax.urlUsers + userid,
-      method: 'DELETE',
-      success:function(data){
-        console.log(data + "deleted");
 
-      },
-      failure:function(){
-        console.log(data + " :not deleted, idiot");
-      }
-
-    });
-  },
   deleteMessages:function(messageId,liSelector,paragraphSelector){
     $.ajax({
-      method: 'DELETE',
-      url: ajax.urlMessages + messageId,
+      method: 'POST',
+      url: "/delete-message",
+      data: {id:messageId},
       success: function(data) {
         console.log("DELETED", data);
         $(liSelector).remove();
