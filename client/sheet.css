@@ -38,8 +38,7 @@ body {
 
 .messages {
   height: 400px;
-  background: #FFFFF0;
-  color: red; }
+  background: #FFFFF0; }
 
 #message-form input {
   width: 50%; }
