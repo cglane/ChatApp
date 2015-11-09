@@ -158,7 +158,7 @@ public class Main {
         Spark.get(
                 "/get-message",
                 ((request, response) -> {
-                    String id = request.queryParams("_id");
+                    String id = request.queryParams("id");
                     try {
                         int idNum = Integer.valueOf(id);
                         JsonSerializer serializer = new JsonSerializer();
@@ -213,7 +213,7 @@ public class Main {
         Spark.post(
                 "/delete-message",
                 ((request, response) -> {
-                    String id = request.queryParams("_id");
+                    String id = request.queryParams("id");
                     try {
                         int idNum = Integer.valueOf(id);
                         deleteMessage(conn, idNum);
