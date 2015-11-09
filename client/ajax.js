@@ -1,6 +1,8 @@
+
+var currMessages = [];
 var ajax ={
-  urlMessages: "https://tiny-tiny.herokuapp.com/collections/sweetMessage/",
-  urlUsers:"https://tiny-tiny.herokuapp.com/collections/sweetUsers/",
+  urlMessages: "/get-messages",
+  urlUsers:"/get-users",
   loginUsers:function(){
     $.ajax({
       url:ajax.urlUsers,
@@ -25,9 +27,6 @@ var ajax ={
           $('.container.main').removeClass('display-none');
         }
         else{
-          $('input[name="username"]').val('');
-          $('input[name="password"]').val('');
-          alert('this is not my password');
         }
       });
       },
@@ -36,29 +35,96 @@ var ajax ={
       }
     });
   },
-  getUsers: function(){
+  getUsers:function(){
     $.ajax({
       url:ajax.urlUsers,
       method:'GET',
-      data:ajax.urlUsers,
+      data: ajax.urlUsers,
       success:function(data){
-        _.each(data, function(el){
-          ajax.printTemplate('users', el, 'users');
-        });
+        // console.log(data);
+        var parsedData = JSON.parse(data);
+        _.each(parsedData, function(el, idx, arr){
+          ajax.printUsers(el, 'users');
+        if(idx > 0 && $('input[name="rusername"]').val() === el.username){
+          $.ajax({
+            url:ajax.urlUsers + el._id,
+            method:'DELETE',
+            success:function(){
+              console.log('success');
+            }
+          });
+        }
+        if($('input[name="username"]').val() === el.username && $('input[name="password"]').val() === el.password){
+          $('.paywall').removeClass('display-block');
+          $('.paywall').addClass('display-none');
+          $('.container.main').removeClass('display-none');
+          $('.main').removeClass('display-none');
+          $('.main').addClass('display-block');
+          localStorage.setItem('username',el.username);
+        }
+        else{
+        }
+      });
+      },
+      failure: function(user){
+        console.log(user +":did not load");
       }
     });
   },
-  getMessages:function(){
+  getMessageButtons:function(){
     $.ajax({
       type: 'GET',
       url: ajax.urlMessages,
       success: function(data) {
-        console.log(data + " :loaded");
+        var username = localStorage['username'];
+        var parsedData = JSON.parse(data);
+        _.each(parsedData,function(el){
+          if(el.recipient == username){
+            ajax.printMessageButton(el);
+            //add message id to currMessages array
+            currMessages.push(el._id);
+          }
+        });
       },
       failure: function(data) {
         console.log("FAILURE: ", data);
       }
     });
+  },
+  getNewMessageButtons:function(){
+    $.ajax({
+      type: 'GET',
+      url: ajax.urlMessages,
+      success: function(data) {
+        var parsedData = JSON.parse(data);
+        var username = localStorage['username'];
+        _.each(parsedData,function(el){
+          if(el.recipient == username){
+            if(!_.contains(currMessages,el._id)){
+            ajax.printMessageButton(el);
+            currMessages.push(el._id);
+              }
+          }
+        });
+      },
+      failure: function(data) {
+        console.log("FAILURE: ", data);
+      }
+    });
+  },
+  getMessageText:function(messageId){
+      $.ajax({
+        type:'GET',
+        url:"/get-messages",
+        success:function(data){
+          var parsedData = JSON.parse(data);
+          _.each(parsedData,function(el){
+            if(el._id == messageId){
+              ajax.printMessageText(el);
+            }
+          });
+        }
+      });
   },
   postUsers:function(user){
     $.ajax({
@@ -75,43 +141,27 @@ var ajax ={
   },
   postMessages:function(message){
     $.ajax({
-      url: main.urlMessages,
+      url: "/send-message",
       method: 'POST',
       data: message,
       success: function(resp) {
-        // console.log(resp);
-        // var tmpl = _.template(templates.userInput);
-        // $('.chatfield').append(tmpl(resp));
-        // main.startFixedWindowAtBottom('chatfield');
-        console.log(resp);
+        console.log('success');
       },
       failure: function(resp) {
         console.log("FAILURE", resp);
       }
     });
   },
-  deleteUsers:function(userid){
-    $.ajax({
-      url: ajax.urlUsers + userid,
-      method: 'DELETE',
-      success:function(data){
-        console.log(data + "deleted");
 
-      },
-      failure:function(){
-        console.log(data + " :not deleted, idiot");
-      }
-
-    });
-  },
-  deleteMessages:function(messageId){
+  deleteMessages:function(messageId,liSelector,paragraphSelector){
     $.ajax({
-      method: 'DELETE',
-      url: ajax.urlMessages + messageId,
+      method: 'POST',
+      url: "/delete-message",
+      data: {id:messageId},
       success: function(data) {
         console.log("DELETED", data);
-        // var id = '#' + messageId;
-        // $(id).remove();
+        $(liSelector).remove();
+        $(paragraphSelector).remove();
       },
       failure: function(data) {
         console.log("ERROR", data);
@@ -123,7 +173,8 @@ var ajax ={
       method:'GET',
       url: ajax.urlUsers,
       success:function(data){
-        _.each(data,function(el){
+        var parsedData = JSON.parse(data);
+        _.each(parsedData,function(el){
           var id = el._id;
           var uniqueUrl = ajax.urlUsers + id;
           ajax.deleteUsers(id);
@@ -136,7 +187,8 @@ var ajax ={
       method:'GET',
       url:ajax.urlMessages,
       success:function(data){
-        _.each(data,function(el){
+        var parsedData = JSON.parse(data);
+        _.each(parsedData,function(el){
           var id = el._id;
           var uniqueUrl = messageUrl + id;
           ajax.deleteMessages(id);
@@ -144,12 +196,26 @@ var ajax ={
       }
     });
   },
-  printTemplate:function(name,data,selectorName){
+  printUsers:function(data,selectorName){
     var selector = "." + selectorName;
     var tmpl = _.template(templates.users);
     console.log("printTemplate");
     $('.users').html('');
     $(selector).append(tmpl(data));
+    if(data.username === localStorage['recipient']){
+      var currRecipientSelector = "#"+data.username;
+      $(currRecipientSelector).css("color","red");
+    }
 
-  }
+
+  },
+  printMessageButton:function(data){
+    var tmpl = _.template(templates.newMessage);
+      $('.nav-tabs').append(tmpl(data));
+  },
+    printMessageText:function(data){
+      var tmpl = _.template(templates.messageParagraph);
+      $('.message-text-box').append(tmpl(data));
+    },
+
 };

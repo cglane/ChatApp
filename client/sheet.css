@@ -1,5 +1,6 @@
 body {
-  background-color: #E0FFFF; }
+  background-color: #fff;
+  font-family: "Myriad Set Pro","Lucida Grande","Helvetica Neue","Helvetica","Arial","Verdana","sans-serif"; }
 
 .paywall {
   background-color: #FFF8DC;
@@ -22,21 +23,23 @@ body {
 
 .cols {
   border: 1px solid #D3D3D3;
-  height: 600 px; }
+  height: 600px; }
 
 .row {
   margin-top: 5%;
   box-shadow: 10px 0px 5px 5px #888888; }
 
 .users {
-  background: #87CEEB;
-  height: 800px; }
+  background: #0E53A7;
+  height: 800px;
+  text-family: "Myriad Set Pro","Lucida Grande","Helvetica Neue","Helvetica","Arial","Verdana","sans-serif"; }
   .users:hover {
     background-color: #4682B4; }
 
 .messages {
   height: 400px;
-  background: #FFFFF0; }
+  background: #FFFFF0;
+  color: red; }
 
 #message-form input {
   width: 50%; }

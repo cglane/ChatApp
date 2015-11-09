@@ -8,10 +8,10 @@
 
   <body>
     <!-- sign in paywall with form for signing in  -->
-    <div class="container paywall sign-in display-block">
+    <div class="container paywall sign-in">
       <form>
         <input type="text" name="username" value="" placeholder="Enter Username">
-        <input type="text" name="password" value="" placeholder="Enter Password">
+        <input type="password" name="password" value="" placeholder="Enter Password">
         <button type="button" id = "enter-sign-in" class = 'btn'name="enter">Enter</button>
         <button type="button" id = "register" class="btn"name="register">Register</button>
       </form>
@@ -20,8 +20,8 @@
     <div class="container paywall register display-none">
       <form>
         <input type="text" name="rusername" value="" placeholder="Enter Username">
-        <input type="text" name="rpassword" value="" placeholder="Enter Password">
-        <input type="text" name="rpassword-confirm" value="" placeholder="Enter Password Again">
+        <input type="password" name="rpassword" value="" placeholder="Enter Password">
+        <input type="password" name="rpassword-confirm" value="" placeholder="Enter Password Again">
         <button type="button" id = "enter-register" class = 'btn'name="enter">Enter</button>
         <button type="button" id = "sign-in" class= "btn" name="sign-in">Sign In</button>
       </form>
@@ -33,12 +33,8 @@
     <div class="col-xs-8  cols messages">
       <ul class="nav nav-tabs">
         <li class="active"><a href="#">Messages</a></li>
-        <li><a href="#">Menu 1</a><span id="txt"></span>
-</li>
-        <li><a href="#">Menu 2</a></li>
-        <li><a href="#">Menu 3</a></li>
       </ul>
-      <p class = "txt">lorem ipsum viv varia fit</p>
+      <div class = "message-text-box"></div>
 
       <form class = "bottom-form"id = "message-form">
         <button type="button" id = "add-time" name="plus">+</button>
