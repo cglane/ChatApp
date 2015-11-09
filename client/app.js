@@ -3,15 +3,15 @@ $(document).ready(function(){
 });
 var page = {
 
-init:function(){
-page.styles();
-page.events();
-},
-styles:function(){
-  ajax.getUsers();
-  ajax.getMessageButtons();
-  setInterval(ajax.getNewMessageButtons,1000);
-},
+  init:function(){
+  page.styles();
+  page.events();
+  },
+  styles:function(){
+    ajax.getUsers();
+    ajax.getMessageButtons();
+    setInterval(ajax.getNewMessageButtons,1000);
+  },
 events:function(){
     //event handler for sign-in button 'register'
     $('.sign-in').on('click', '#register',function(e){
@@ -73,7 +73,7 @@ events:function(){
         var recipient = $(this).closest('div').attr('id');
         localStorage.setItem('recipient', recipient);
         $('.users p').css('color','black');
-        $('.users span').css('color','black');_
+        $('.users span').css('color','black');
         $(this).css("color",'red');
       });
       //event handler for showing messages
@@ -100,7 +100,7 @@ events:function(){
     ajax.postUsers(data);
   },
   signIn: function(){
-    ajax.getUsers();
+    // ajax.loginUsers();
   },
   //thank you w3 schools
   countDown:function(messageId){
@@ -113,7 +113,7 @@ events:function(){
       $(spanSelector).html(setTime);
       $('#message-form').on('click',function(){
         setTime+=5;
-      })
+      });
       if (setTime === 0) {
           ajax.deleteMessages(messageId,liSelector,paragraphSelector);
       }
