@@ -3,6 +3,38 @@ var currMessages = [];
 var ajax ={
   urlMessages: "/get-messages",
   urlUsers:"/get-users",
+  loginUsers:function(){
+    $.ajax({
+      url:ajax.urlUsers,
+      method:'GET',
+      data: ajax.urlUsers,
+      success:function(data){
+        // console.log(data);
+        _.each(data, function(el, idx, arr){
+          console.log(el);
+        if(idx > 0 && $('input[name="rusername"]').val() === el.username){
+          $.ajax({
+            url:ajax.urlUsers + el._id,
+            method:'DELETE',
+            success:function(){
+              console.log('success');
+            }
+          });
+        }
+        if($('input[name="username"]').val() === el.username && $('input[name="password"]').val() === el.password){
+          $('.paywall').removeClass('display-block');
+          $('.paywall').addClass('display-none');
+          $('.container.main').removeClass('display-none');
+        }
+        else{
+        }
+      });
+      },
+      failure:function(user){
+        consle.log(user +":did not load");
+      }
+    });
+  },
   getUsers:function(){
     $.ajax({
       url:ajax.urlUsers,
@@ -25,17 +57,16 @@ var ajax ={
         if($('input[name="username"]').val() === el.username && $('input[name="password"]').val() === el.password){
           $('.paywall').removeClass('display-block');
           $('.paywall').addClass('display-none');
+          $('.container.main').removeClass('display-none');
           $('.main').removeClass('display-none');
           $('.main').addClass('display-block');
           localStorage.setItem('username',el.username);
         }
         else{
-          $('input[name="username"]').val('');
-          $('input[name="password"]').val('');
         }
       });
       },
-      failure:function(user){
+      failure: function(user){
         console.log(user +":did not load");
       }
     });
@@ -90,7 +121,7 @@ var ajax ={
           _.each(parsedData,function(el){
             if(el._id == messageId){
               ajax.printMessageText(el);
-            };
+            }
           });
         }
       });
@@ -168,6 +199,8 @@ var ajax ={
   printUsers:function(data,selectorName){
     var selector = "." + selectorName;
     var tmpl = _.template(templates.users);
+    console.log("printTemplate");
+    $('.users').html('');
     $(selector).append(tmpl(data));
     if(data.username === localStorage['recipient']){
       var currRecipientSelector = "#"+data.username;
