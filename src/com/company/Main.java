@@ -192,11 +192,12 @@ public class Main {
         Spark.post(
                 "/send-message",
                 ((request, response) -> {
-                    Session session = request.session();
-                    String username = session.attribute("username");
+                    //Session session = request.session();
+                    //String username = session.attribute("username");
 
                     String message = request.queryParams("message");
                     String recipientName = request.queryParams("recipient");
+                    String username = request.queryParams("username");
 
                     User sender = selectUser(conn, username);
                     User recipient = selectUser(conn, recipientName);
