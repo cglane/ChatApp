@@ -58,6 +58,8 @@ events:function(){
             recipient: localStorage['recipient'],
             message:$('input[name="message"]').val(),
         };
+        console.log(data);
+
         ajax.postMessages(data);
         $('input[name="message"]').val('');
         console.log(data);
@@ -93,7 +95,7 @@ events:function(){
             if($('input[name="rpassword"]').val() === $('input[name="rpassword-confirm"]').val()){
               return $('input[name="rpassword"]').val();
             }
-    
+
         },
         status: false,
     };
