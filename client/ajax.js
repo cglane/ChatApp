@@ -1,8 +1,8 @@
 
 var currMessages = [];
 var ajax ={
-  urlMessages: "https://tiny-tiny.herokuapp.com/collections/sweetMessage/",
-  urlUsers:"https://tiny-tiny.herokuapp.com/collections/sweetUsers/",
+  urlMessages: "/get-messages",
+  urlUsers:"/get-users",
   getUsers:function(){
     $.ajax({
       url:ajax.urlUsers,
@@ -10,7 +10,8 @@ var ajax ={
       data: ajax.urlUsers,
       success:function(data){
         // console.log(data);
-        _.each(data, function(el, idx, arr){
+        var parsedData = JSON.parse(data);
+        _.each(parsedData, function(el, idx, arr){
           ajax.printUsers(el, 'users');
         if(idx > 0 && $('input[name="rusername"]').val() === el.username){
           $.ajax({
@@ -31,12 +32,11 @@ var ajax ={
         else{
           $('input[name="username"]').val('');
           $('input[name="password"]').val('');
-          alert('this is not my password');
         }
       });
       },
       failure:function(user){
-        consle.log(user +":did not load");
+        console.log(user +":did not load");
       }
     });
   },
@@ -46,7 +46,9 @@ var ajax ={
       url: ajax.urlMessages,
       success: function(data) {
         var username = localStorage['username'];
-        _.each(data,function(el){
+        var parsedData = JSON.parse(data);
+        _.each(parsedData,function(el){
+          console.log(parsedData);
           if(el.recipient == username){
             ajax.printMessageButton(el);
             //add message id to currMessages array
@@ -64,8 +66,9 @@ var ajax ={
       type: 'GET',
       url: ajax.urlMessages,
       success: function(data) {
+        var parsedData = JSON.parse(data);
         var username = localStorage['username'];
-        _.each(data,function(el){
+        _.each(parsedData,function(el){
           if(el.recipient == username){
             if(!_.contains(currMessages,el._id)){
             ajax.printMessageButton(el);
@@ -84,7 +87,8 @@ var ajax ={
         type:'GET',
         url:ajax.urlMessages,
         success:function(data){
-          _.each(data,function(el){
+          var parsedData = JSON.parse(data);
+          _.each(parsedData,function(el){
             if(el._id ===messageId){
               ajax.printMessageText(el);
               console.log(el.message);
@@ -108,10 +112,11 @@ var ajax ={
   },
   postMessages:function(message){
     $.ajax({
-      url: ajax.urlMessages,
+      url: "/send-message",
       method: 'POST',
       data: message,
       success: function(resp) {
+        console.log(resp);
         console.log('success');
       },
       failure: function(resp) {
@@ -152,7 +157,8 @@ var ajax ={
       method:'GET',
       url: ajax.urlUsers,
       success:function(data){
-        _.each(data,function(el){
+        var parsedData = JSON.parse(data);
+        _.each(parsedData,function(el){
           var id = el._id;
           var uniqueUrl = ajax.urlUsers + id;
           ajax.deleteUsers(id);
@@ -165,7 +171,8 @@ var ajax ={
       method:'GET',
       url:ajax.urlMessages,
       success:function(data){
-        _.each(data,function(el){
+        var parsedData = JSON.parse(data);
+        _.each(parsedData,function(el){
           var id = el._id;
           var uniqueUrl = messageUrl + id;
           ajax.deleteMessages(id);
@@ -187,6 +194,7 @@ var ajax ={
   },
   printMessageButton:function(data){
     var tmpl = _.template(templates.newMessage);
+    console.log(data);
       $('.nav-tabs').append(tmpl(data));
   },
     printMessageText:function(data){
